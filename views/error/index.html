@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" id="metaDes" content="美说">
+    <meta name="keywords" content="图片 制作">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit">
+    <meta name="author" content="fish">
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta name="viewport" content="width=640, initial-scale=0.5, minimum-scale=0.5, maximum-scale=0.5, user-scalable=yes">
+    <title>提示</title>
+    <link rel="stylesheet" href="./index.css" />
+</head>
+
+
+<body>
+    <div class="container">
+        <div class="logo"></div>
+        <div class="hint">已停止访问该网页</div>
+        <div class="content" id="delete-layer">
+            <span>网页包含诱导分享，诱导关注内容，被多人投诉，为维护绿色上网环境，已停止访问。</span>
+            <div class="appeal-operation">
+                <a href="./appeal.html">如何恢复访问</a>
+                <a href="http://www.agoodme.com/helper?type=ME%E5%AE%A1%E6%A0%B8%E8%A7%84%E8%8C%83">查看规则</a>
+            </div>
+        </div>
+        <div class="content" id="invalid-layer"></div>
+        <div id="ad"></div>
+        <div class="copy-right">Copy Right © 2011 - 2016 gli.cn</div>
+    </div>
+    <script>
+         var device = "pc";
+          
+            if (navigator.userAgent.match(/Android/i)) {  
+                device = "android";
+            } else if (navigator.userAgent.match(/iPhone/i)) {
+                device = "ios";
+            } else if (navigator.userAgent.match(/iPad/i)) {
+                device = "ipad";
+            } else if (navigator.userAgent.match(/Windows Phone/i)) {
+                device = "wphone";
+            } 
+        /**
+            *获取路由参数
+            */
+        var appealInfo = window.localStorage.getItem("tpl_appeal_info");
+        try {
+            if (appealInfo) {
+                appealInfo = JSON.parse(appealInfo);
+                var level = appealInfo.level;
+                var detail = appealInfo.detail || "作品未发布，临时链接已失效";
+                var deleteLayer = document.getElementById("delete-layer");
+                var invalidLayer = document.getElementById("invalid-layer");
+                if (level == 1) { //失效
+                    deleteLayer.style.display = "none";
+                    invalidLayer.style.display = "block";
+                    invalidLayer.innerHTML = detail;
+                } else if (level == 2) {   //删除
+                    invalidLayer.style.display = "none";
+                    deleteLayer.style.display = "block";
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+
+showADS();
+        var xmlHttpRequest;
+        //XmlHttpRequest对象    
+        function createXmlHttpRequest() {
+            if (window.ActiveXObject) { //如果是IE浏览器    
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) { //非IE浏览器    
+                return new XMLHttpRequest();
+            }
+        }
+        //封装 ajax加载 
+        function showADS() {
+            //LOGO接口的链接，暂时是测试，后续会修改  
+            var url = "http://api.agoodme.com/v1/ad/advertisingplan/showtype/error";
+            //1.创建XMLHttpRequest组建    
+            xmlHttpRequest = createXmlHttpRequest();
+            
+            //2.设置回调函数    
+            xmlHttpRequest.onreadystatechange = function () {
+                if (xmlHttpRequest.readyState == 4 && xmlHttpRequest.status == 200) {
+                    //纯文本数据的接受方法   
+                    var text = xmlHttpRequest.responseText;
+                    try {
+                        if (text) {
+                            text = JSON.parse(text);
+                            addADS(text.result[0]);
+                        }
+                    } catch (message) {
+                        console.log(message);
+                    }
+
+                }
+            };
+            //3.初始化XMLHttpRequest组建    
+            xmlHttpRequest.open("GET", url, true);
+            xmlHttpRequest.setRequestHeader("X-Gli-Client-Id", "MEWebClient");
+             xmlHttpRequest.setRequestHeader("X-Gli-User-Id", "System");
+            
+            //4.发送请求    
+            xmlHttpRequest.send(null);
+        }
+        function addADS(adInfo) {
+            if(typeof adInfo.advertisements[device] =="undefined"){
+                return 
+            }
+            var pos=adInfo.advertising_plan;
+            var src=adInfo.advertisements[device][0].value;
+            var dom = document.getElementById("ad");
+           
+            dom.style.top = pos.top+"px";
+            dom.style.left =   (document.body.clientWidth-pos.width)/2+"px";
+            dom.style.width = pos.width+"px";
+            dom.style.height =  pos.height+"px";
+            dom.innerHTML='<iframe width="100%" height="100%" frameborder="0" src="'+src+'"/>'
+
+        }
+    </script>
+</body>
+
+</html>

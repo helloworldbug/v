@@ -1,0 +1,17 @@
+#node
+node_modules/**
+#compile css
+display/css/mobile.min.css
+#compile js
+display/js/controller/mobile.min.js
+#WebStorm
+.idea/
+*.iml
+#git local store
+.git/
+#compile 
+dist/
+#submodule
+css/main.scss
+js/lib/render.js
+
