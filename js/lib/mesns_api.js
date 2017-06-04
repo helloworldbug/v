@@ -1,5 +1,5 @@
 // 文件名称: mesns_api.js 
-// 创 建 人: nyh 
+// 创 建 人: tony 
 // 创建日期: 2015/06/05
 // 版本号：V2.0
 // 描    述: ME社交接口 
@@ -172,7 +172,7 @@ sns_data.getSnsLikeCount = function (like_tplid, cb_ok, cb_err) {
 //YJ111
 /** 点赞提交信息
      like_opration, 赞类型 like 点赞，cancerlike 取消赞
-     like_type, 0-微杂志作品，1-众创页点赞，2-评论，3-拓展后续添加 
+     like_type, 0-H5微场景作品，1-众创页点赞，2-评论，3-拓展后续添加 
      like_tplid,点赞对象id
      data_site,来自哪个终端 0-ME App; 1-PC端;2-微信
  **/
@@ -376,8 +376,8 @@ sns_data.getSnsCommentCountByCid = function (field_name, comment_id, cb_ok, cb_e
 //YJ111
 /** 评论
     comment_id,评论对象id
-    comment_type,0-微杂志作品，1-众创页评论，2-评论
-    comment_uid,评论该微杂志的用户的uid
+    comment_type,0-H5微场景作品，1-众创页评论，2-评论
+    comment_uid,评论该H5微场景的用户的uid
     comment_content,评论内容 
     data_site, 来源：0-ME App; 1-PC端;2-微信
     comment_parentid,父评论id（对评论进行评论时,评论信息还存在评论表，当然数据comment_type=2 评论）
@@ -419,7 +419,7 @@ sns_data.snsSaveComment = function (options, cb_ok, cb_err) {
                 obj.set("belong_tplpage", belong_tplpage);
             }
             obj.save(null, {
-                success: cb_ok,//当回调成功后需要给微杂志作者发送推送通知
+                success: cb_ok,//当回调成功后需要给H5微场景作者发送推送通知
                 error: cb_err
             });
         }
@@ -653,7 +653,7 @@ sns_data.tplFieldAddNum = function (tpl_id, field, cb_ok, cb_err) {
 };
 
 /** 新增反馈数据
- fb_type,类别：0-反馈信息，其他为举报信息：1-app微杂志，2-众创，3-pc微杂志，4-页举报，5-评论举报
+ fb_type,类别：0-反馈信息，其他为举报信息：1-appH5微场景，2-众创，3-pcH5微场景，4-页举报，5-评论举报
  fb_objid ,举报对象id
  context，反馈或举报内容（意见描述，意见补充等）
  fb_contact，联系方式

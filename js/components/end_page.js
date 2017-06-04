@@ -1,6 +1,6 @@
 /** 文件名称: end_page.js
  *
- * 创 建 人: fishYu
+ * 创 建 人: tony
  * 创建日期: 2016/6/12 16:45
  * 描    述: 作品尾页相关的操作
  */
@@ -65,7 +65,7 @@ var EndPage = function(tpl){
      */
     this.mobileEnd = function(){
         var self = this;
-        //DIY 我的微杂志
+        //DIY 我的H5微场景
         var endNodeBtn = $("#end-node-btn");
         endNodeBtn.on("tap",function (e) {
             e.preventDefault();
@@ -128,7 +128,7 @@ var EndPage = function(tpl){
     this.clickDownload = function(){
         var _url = "";
         if (this.device == "android") {	//android设备
-            //modify by fishYu 2016-3-8 17:13  在app里面在微博打开后，点击作品尾页的dir我的微杂志，无法跳转到下载页面，或是进入me
+            //modify by tony 2016-3-8 17:13  在app里面在微博打开后，点击作品尾页的dir我的H5微场景，无法跳转到下载页面，或是进入me
 //            _url = "http://me.agoodme.com/dl/me.apk";
             _url = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gli.cn.me";
             //在微信里面打开的情况

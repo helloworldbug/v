@@ -1,6 +1,6 @@
 /*
  name:手机
- author:YJ
+ author:tony
  time:2015/6/16
  */
 
@@ -87,7 +87,7 @@ if (fmawr == "999") {
             //显示导航条
             showOpusLife();
         }
-        //预防注入， modify by fishYu 2016-12-27
+        //预防注入， modify by tony 2016-12-27
         tpl.name = tpl.name.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
         listType = tpl.list_type;
         tplSign = tpl.tpl_sign;
@@ -135,10 +135,10 @@ if (fmawr == "999") {
         //标题
         shareData["title"] = tpl["name"]; //分享标题
         tplClass = tpl.tpl_class;	//用于区分个人还是企业。企业为1，个人为:0(pc)，或者undefined(app)
-        //modify by fishYu 2016-7-5 14:13 新增的判断是否需要添加尾页
+        //modify by tony 2016-7-5 14:13 新增的判断是否需要添加尾页
         var lastStatus = tpl.last_status || 0;
-        //modify by fishYu 各种开关设置 2016-9-10 13:00
-        var commentOff = tpl.comment_off;   //modify by fishYu 2016-10-12 由于comment_off, true 表示关闭， false 表示打开， 跟之前设置的只不符
+        //modify by tony 各种开关设置 2016-9-10 13:00
+        var commentOff = tpl.comment_off;   //modify by tony 2016-10-12 由于comment_off, true 表示关闭， false 表示打开， 跟之前设置的只不符
         if (commentOff !== undefined) {
             commentOff = !commentOff;
         }
@@ -199,7 +199,7 @@ if (fmawr == "999") {
             }
         });
         md.$swiperContainer.on("tap", function (e) {
-            //add by fishYu 2016-4-11 阻止点击界面元素的时候，操作按钮出现
+            //add by tony 2016-4-11 阻止点击界面元素的时候，操作按钮出现
             if (window.isHammerTap) {
                 window.isHammerTap = false;
                 return;
@@ -264,7 +264,7 @@ if (fmawr == "999") {
                         if (comment) {
                             comment.closeBarrage();
                         }
-                        //modify by fishYu 2016-4-28 10:03修改由于现在每页都从dom中删除所以事件重新添加
+                        //modify by tony 2016-4-28 10:03修改由于现在每页都从dom中删除所以事件重新添加
                         if (endPage && endPage.mobileEnd) {
                             endPage.mobileEnd();
                         }
@@ -611,7 +611,7 @@ if (fmawr == "999") {
             replayMainAudio();
         }
     })
-    //created by fishYu 2016-1-14  musicBtn 更换 musicWrapper  扩大音乐按钮的区域
+    //created by tony 2016-1-14  musicBtn 更换 musicWrapper  扩大音乐按钮的区域
     musicWrapper.on("touchend", function (e) {
         e.stopPropagation();
         e.preventDefault();
@@ -802,7 +802,7 @@ if (fmawr == "999") {
             music.addClass("spin");
             notes.addClass("note");
             switchMusicLabel("开启音乐");
-            //add by fishYu 2016-12-27 测试在微信里面不能直接播放
+            //add by tony 2016-12-27 测试在微信里面不能直接播放
             if (utils.isWeiXinPlatform()) {   //在微信里面的时候
                 wx && wx.ready(function () {
                     _loadMusic();

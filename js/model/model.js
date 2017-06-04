@@ -12,7 +12,7 @@ module.exports = {
      * @param tid           //作品ID
      * @param callback      //成功的回调
      */
-    loadData: function (tid, callback) {
+    loadData_api: function (tid, callback) {
         var self = this;
         var fileUrlConf = "http://ac-syrskc2g.clouddn.com/";    //测试服的jsonurl域名
         var apiServe = "http://api.test.agoodme.com"; //http://api.test.agoodme.com  http://192.168.6.212:8888
@@ -208,6 +208,91 @@ module.exports = {
         });
 
 
+    },
+     /**
+     * 根据作品id去查询所有所作品的数据
+     * @param tid           //作品ID
+     * @param callback      //成功的回调
+     */
+    loadData : function (tid, callback) {
+        var self = this;
+        var fileUrlConf = "http://ac-syrskc2g.clouddn.com/";    //测试服的jsonurl域名
+        if(fmawr === "999"){
+            fileUrlConf = "http://ac-hf3jpeco.clouddn.com/";    //正式服的jsonurl域名
+        }
+        var tpl = null;
+        //TODO 这里需要兼容页投票，需要投票数据的实时性
+        dms.model.getTplObjById(tid, function(obj){
+            var tplSign = obj.tpl_sign;
+            var tplDelete = obj.tpl_delete;
+            if(tplDelete){
+                alert("该作品已删除");
+                LoadingWave.end();
+                return false;
+            }
+            //如果作品失效了，不能观看
+            if (obj && obj.tpl_invalid == 1) {
+                alert("该问题已经答错三次,\n很抱歉你看不到贺卡啦");
+                LoadingWave.end();
+                return false;
+            }
+            if (obj && obj.json_url ) {   //添加一个没有反馈的情况下// && obj.tpl_fbstate != 1  去掉有反馈不去读取静态文件
+                var jsonurl = obj.json_url;
+                var url = "";
+                if (dms.isJsonObject(jsonurl)) {
+                    jsonurl = JSON.parse(jsonurl);
+                    var postfix = jsonurl.postfix || "";
+                    url = fileUrlConf + jsonurl.key + postfix + "?" + Date.now();
+                } else {
+                    url = fileUrlConf + jsonurl + ".json?" + Date.now();
+                }
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    dataType: "json",
+                    success: function (data) {
+                        try{
+                            var _dataString = JSON.stringify(data);
+                            //防止JS注入，把所有的< >转换成&lt; &gt;
+                            _dataString = _dataString.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
+                            var _data = JSON.parse(_dataString);
+                            var _objString = JSON.stringify(obj);
+                            _objString = _objString.replace(/\</g, "&lt;").replace(/\>/g, "&gt;");
+                            var _obj = JSON.parse(_objString);
+                            if(tplSign == 2){
+                                _obj.groups = _data.tplData.groups;
+                                tpl = _obj;
+                                callback(tpl);
+                            }else {
+                                _obj.page_value = _data.tplData.pages;
+                                tpl = _obj;
+                                callback(tpl);
+                            }
+                        }catch(e){
+                            console.log("转换json失败："+ e);
+                            callback(null);
+                        }
+                    },
+                    error: function (error) {
+                        console.log(error, "load json_url error");
+                        //旧的加载方式
+                        self.oldLoadWay(obj, tplSign, tid, callback);
+                    }
+                });
+            } else {
+                if (!obj) {
+                    alert("数据缺损，作品不可用");
+                    return;
+                } else {
+                    console.log("no json_url");
+                    //旧的加载方式
+                    self.oldLoadWay(obj, tplSign, tid, callback);
+                }
+            }
+        },function(err){
+            alert("网络不好，请重试");
+            return false;
+        });
     },
     /**
      * 老的加载方式去查询所有页的数据
