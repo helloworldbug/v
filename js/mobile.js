@@ -67,7 +67,7 @@ if (fmawr == "999") {
         model.loadData(params_tid, callback);
     }
     //隐藏弹幕开关
-    // switchComment.hide();
+     switchComment.hide();
     /**
      * 全局点击出现或者隐藏按钮控件的方法
      */
