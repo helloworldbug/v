@@ -19,7 +19,11 @@ module.exports = {
         if (fmawr === "999") {
             fileUrlConf = "http://ac-hf3jpeco.clouddn.com/";    //正式服的jsonurl域名
             apiServe = "http://api.agoodme.com";
+        }else if(fmawr=="10000"){
+            fileUrlConf= "http://ac-m1mab2gt.clouddn.com/";
+            apiServe = "http://api.agoodme.com";
         }
+
         var tpl = null;
         //TODO 这里更换查询接口，走自己的服务器查询是否失效。以及作品信息
         // dms.model.getTplObjById(tid, function(obj){
@@ -219,6 +223,8 @@ module.exports = {
         var fileUrlConf = "http://ac-syrskc2g.clouddn.com/";    //测试服的jsonurl域名
         if(fmawr === "999"){
             fileUrlConf = "http://ac-hf3jpeco.clouddn.com/";    //正式服的jsonurl域名
+        }else if(fmawr==10000){
+            fileUrlConf = "http://ac-m1mab2gt.clouddn.com/";
         }
         var tpl = null;
         //TODO 这里需要兼容页投票，需要投票数据的实时性
