@@ -25,6 +25,7 @@ var wxHost = "http://www.agoodme.com/wetpl/";
 
 var qnHostTs = "http://ac-syrskc2g.clouddn.com/";
 var qnHost = "http://ac-hf3jpeco.clouddn.com/";
+var qnhomeisHost = "http://ac-m1mab2gt.clouddn.com/";
 
 var fma_type_tpl = 0;
 var fma_type_works = 1;
@@ -53,4 +54,8 @@ var qiniuImageHost = qnHostTs;
 if(fmawr == "999"){
     qiniuImageHost = qnHost;
     wxHost = "http://www.agoodme.com/wetpl/";
+}
+if(fmawr=="10000"){
+    qiniuImageHost = qnhomeisHost;
+    wxHost = "http://www.agoodme.com/wetpl/"; 
 }

@@ -10,7 +10,7 @@ var Render = require("./lib/render.js"),                                //显示
     EndPage = require("./components/end_page.js"),                      //尾页相关操作
     model = require("./model/model.js"),                                   //数据处理
     utils = require("./tools/utils.js"),                                    //辅助的插件
-    FloatingLayer = require("./components/floatingLayer.js"),                //浮层
+   // FloatingLayer = require("./components/floatingLayer.js"),                //浮层
     LogUtils = require("./tools/log.js");                                      //收集log相关的操作
 
 var userId = "";
@@ -39,7 +39,7 @@ if (fmawr == "999") {
         swiper, tpl;
     //实例化一些评论相关的对象
     var comment = null; //评论组件
-    var floatingLayer = null; //浮层组件
+    //var floatingLayer = null; //浮层组件
 
     var params_tid = utils.getParameter(window.location.href, "tid").split("#")[0];   //去掉微信公众号里面黏贴链接多出的#rd=符号
     var dataFrom = utils.getParameter(window.location.href, "dataFrom").split("#")[0];
@@ -67,13 +67,13 @@ if (fmawr == "999") {
         model.loadData(params_tid, callback);
     }
     //隐藏弹幕开关
-     switchComment.hide();
+     //switchComment.hide();
     /**
      * 全局点击出现或者隐藏按钮控件的方法
      */
-    function containerTapHandle() {
-        floatingLayer && floatingLayer.showFloatingLayer();
-    }
+    //function containerTapHandle() {
+    //    floatingLayer && floatingLayer.showFloatingLayer();
+    //}
     /**
      * 显示为完成的作品显示的时间条
      */
@@ -208,13 +208,14 @@ if (fmawr == "999") {
             if (e.target.nodeName != "INPUT" && e.target.nodeName != "LABEL" && e.target.nodeName != "A") {
                 e.stopPropagation();
                 e.preventDefault();
-                if (tplSign == 2) {
+                
+                /** if (tplSign == 2) {
                     containerTapHandle();
                 } else {
                     if (md.currentPage != (md.pageLength - 1)) {  //TODO ME期刊的时候 有些只有一页
                         containerTapHandle();
                     }
-                }
+                }*/
             }
             //            }, 100);
         });
@@ -270,9 +271,9 @@ if (fmawr == "999") {
                         }
                     }
                     //尾页的时候停止自动播放, 包含循环没打开的情况
-                    if (md.magazinePlaying && !dms.IS_LOOP_PLAY) {
-                        floatingLayer.pauseMagazine();
-                    }
+                    //if (md.magazinePlaying && !dms.IS_LOOP_PLAY) {
+                     //   floatingLayer.pauseMagazine();
+                   // }
                 } else if (md.pageIndex == 0) {
                     if (tplClass == 1 && userLevel < 1) {
                         $("#pc-ME").removeClass("show").addClass("hide");
@@ -336,8 +337,7 @@ if (fmawr == "999") {
                                 jsApiList: ["checkJsApi", "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "hideMenuItems"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
                             });
 
-                            wx.error(function (err) {
-                                alert(JSON.stringify(err));
+                            wx.error(function (err) { 
                                 var other_shareData = {
                                     title: shareData.title, // 分享标题
                                     desc: shareData.desc, // 分享描述
@@ -597,7 +597,7 @@ if (fmawr == "999") {
         //TODO 设置TPLPV
         setTplPV("tplid", params_tid, md.getAllPagesLength());
         //创建浮层页组件
-        floatingLayer = new FloatingLayer(data, currentUser, comment, md, log);
+        //floatingLayer = new FloatingLayer(data, currentUser, comment, md, log);
     }
 
     //滑动处理结束
@@ -791,7 +791,7 @@ if (fmawr == "999") {
     function initScreenInfo() {
         $(".newest-end-report").show();
         if (window.commentStatus) {
-            $("#magazine-switch-comment").show();
+            //$("#magazine-switch-comment").show();
         }
 
         //音乐

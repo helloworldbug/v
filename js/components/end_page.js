@@ -91,14 +91,15 @@ var EndPage = function(tpl){
                 var target = e.target;
                 var guanzhuId = target.getAttribute("data-guanzhu");
                 if (guanzhuId) {    //可以关注
-                    var url = "http://me.agoodme.com/index.html?userId="+ guanzhuId;
+                    //var url = "http://me.agoodme.com/index.html?userId="+ guanzhuId;
+                     var url = "http://122.152.192.217/";
 //                window.open(url, "_blank");
                     location.href = url;
                 }
             });
         }
         //头像点击
-        var endNodeFace = $("#end-node-face");
+       /**   var endNodeFace = $("#end-node-face");
         endNodeFace.tap(function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -108,7 +109,7 @@ var EndPage = function(tpl){
                 // location.href = "http://www.agoodme.com/views/share/index.html?id=" + authorId;
                 location.href = SHARE_URL + authorId;
             }
-        });
+        });**/
     };
     /**
      * 无尾页点击操作
@@ -126,8 +127,9 @@ var EndPage = function(tpl){
      * 点击下载
      */
     this.clickDownload = function(){
-        var _url = "";
-        if (this.device == "android") {	//android设备
+
+        var _url = "http://122.152.192.217/";
+       /**   if (this.device == "android") {	//android设备
             //modify by tony 2016-3-8 17:13  在app里面在微博打开后，点击作品尾页的dir我的H5微场景，无法跳转到下载页面，或是进入me
 //            _url = "http://me.agoodme.com/dl/me.apk";
             _url = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gli.cn.me";
@@ -141,7 +143,7 @@ var EndPage = function(tpl){
             if (utils.isWeiXinPlatform()) {
                 _url = "http://a.app.qq.com/o/simple.jsp?pkgname=com.gli.cn.me";
             }
-        }
+        }**/
         location.href = _url;
     };
 };

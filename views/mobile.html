@@ -52,6 +52,7 @@
 
 <body>
     <script>
+         /**  
         //请求用户图片
         var xmlHttpRequest;    
         //XmlHttpRequest对象    
@@ -61,9 +62,11 @@
             }else if(window.XMLHttpRequest){ //非IE浏览器    
                 return new XMLHttpRequest();    
             }    
-        }   
+        }  
+       
         //封装 ajax加载 
-        function loadingLogo(){    
+        function loadingLogo(){
+           去掉执行logo操作
             //LOGO接口的链接，暂时是测试，后续会修改  
             var url = "http://api.test.agoodme.com/v1/sm/works/tpl/"+tid;       
             //1.创建XMLHttpRequest组建    
@@ -74,7 +77,8 @@
             xmlHttpRequest.open("GET",url,true);    
             xmlHttpRequest.setRequestHeader("X-Gli-Client-Id", "MEWebClient");
             //4.发送请求    
-            xmlHttpRequest.send(null);     
+            xmlHttpRequest.send(null);    
+           
         }       
         //回调函数    
         function callback(){
@@ -102,6 +106,7 @@
                 }
             }  
         }  
+         */ 
         //加载动画的JS
         function loadingScript (type, logo){
             var loadingScript = document.createElement("script");   
@@ -118,7 +123,8 @@
             s.parentNode.insertBefore(loadingScript, s);
         }
         //请求LOGO并加载动画
-        loadingLogo();
+        //loadingLogo();
+        loadingScript(0);
         if (fmawr != "0") {
             console.log = function () {
             }
@@ -129,7 +135,7 @@
     <div id="render-bg">
         <div id="progress" class="half-zoom"></div>
         <div id="box" class="swiper-container">
-            
+           <!-- 
             <div id="floating-layer">
                
                 <div id="authorNameAndImg">
@@ -144,7 +150,7 @@
                 </div>
                 <div id="comment"></div>
                 <div id="toDo">我也要做</div>
-                <!---目录-->
+                 
                 <div id="magazine-view-ports" class="screen-button-active">
                     <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACYAAAAgBAMAAACMSheAAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAHlBMVEUAAAD///////////////////////////////8AAAAkwr2HAAAACHRSTlMABpHt7pCIiX7EBi8AAAABYktHRACIBR1IAAAACXBIWXMAAAsSAAALEgHS3X78AAAAQElEQVQoz2MQMlFkYBCy6ICDFkWGiI42BiCBBNoYLDqaGRgskMWasYpFdLSj6W1nEHIB2eGBYsdgAqNhMGBhAAAjWY5Xxcwq9AAAAABJRU5ErkJggg==">
                 </div>
@@ -175,8 +181,11 @@
                         </ul>
                         <div class="report-cancel report-item-active" id="report-cancel">取消</div>
                     </div>
-                </div>
-            </div>
+                </div>  
+                </div> 
+            -->
+            
+            
             <div id="globle-comment"></div>
             <div class="swiper-wrapper">
             </div>
@@ -201,12 +210,12 @@
                 </menu>
             </section>
         </div>
-        <!---评论开关-->
+        <!---评论开关
         <div id="magazine-switch-comment">
             <div class="switch-comment-txt" id="switch-comment-txt">弹</div>
-            <!--增大可点击的热区-->
+           
             <div style="position: relative;height: 110px;width: 110px;left: -32px;top: -20px;z-index: 3;"></div>
-        </div>
+        </div>-->
         <div id="pc-ME" class="fadeInUp animated hide" style="-webkit-animation-delay: 3s; animation-delay: 3s;"></div>
         <div id="opus-life-hint" ></div>
     </div>

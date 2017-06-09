@@ -30,12 +30,12 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
     this.personCenterPage = floatDom.find("#personCenterPage"); //Ta的主页按钮
 
     this.musicWrapper = $("#music-wrapper");                    //音乐按钮
-    this.magazineSwitchComment = $("#magazine-switch-comment"); //弹幕按钮
+    //this.magazineSwitchComment = $("#magazine-switch-comment"); //弹幕按钮
 
     this.reportBtn = $(".newest-end-report");        //举报按钮
 
     var self = this;
-    this.commentStatusTemp = false;     //记录评论状态
+    this.commentStatusTemp = true;     //记录评论状态
     this.praiseStatus = false;          //点赞状态
     this.device = utils.judgePlatform();
 
@@ -78,7 +78,7 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         utils.openComment(comment, $("#switch-comment-txt"));
         floatDom.show();
         self.musicWrapper.hide();
-        self.magazineSwitchComment.hide();
+        //self.magazineSwitchComment.hide();
         if (tpl.list_style) {
             self.magazineViewPorts.show();
         }
@@ -115,9 +115,9 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         }
         utils.closeComment(comment, $("#switch-comment-txt"));
 
-        if (window.commentSwitch) {
-            self.magazineSwitchComment.show();
-        }
+        //if (window.commentSwitch) {
+        //    self.magazineSwitchComment.show();
+        //}
 
         if (self.commentStatusTemp || window.commentStatus) {
             //window.commentStatus = self.commentStatusTemp;
@@ -125,12 +125,12 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         }
     };
 
-    floatDom.on("tap", function (e) {              //点击浮层
+    /** floatDom.on("tap", function (e) {              //点击浮层
         e.preventDefault();
         e.stopPropagation();
         self.hideFloatingLayer();
     });
-
+    */
     this.autorImg.on("tap", function (e) {         //点击头像
         e.preventDefault();
         e.stopPropagation();
@@ -308,7 +308,8 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         //var target = e.target;
         var guanzhuId = tpl.author;
         if (guanzhuId) {    //可以关注
-            var url = "http://me.agoodme.com/index.html?userId=" + guanzhuId;
+            var url="http://122.152.192.217/";
+            //var url = "http://me.agoodme.com/index.html?userId=" + guanzhuId;
             //                window.open(url, "_blank");
             location.href = url;
         }

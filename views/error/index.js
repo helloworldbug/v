@@ -17,7 +17,11 @@ try{
             //正式服
             AV.initialize("hf3jpecovudrg8t7phw3xbt1osqfrmfhnwu22xs8jo1ia3hn", "b9nndoind1e7tjrhj7owyg4m55d9uyymcqprklb5w9qxo9rr");  //正式服获取数据
             var fileUrlConf = "http://ac-hf3jpeco.clouddn.com/";    //正式服的jsonurl域名
-        } else {
+        } else if(fmawr=="10000") {
+            //测试服
+            AV.initialize("m1MAB2GTlpwFORE138vwP5OU-gzGzoHsz", "vGM80hlipIfGa6BHkwOjIBTb");  //测试服获取数据
+            var fileUrlConf = "http://ac-m1mab2gt.clouddn.com/";    //测试服的jsonurl域名
+        }else {
             //测试服
             AV.initialize("syrskc2gecvz24qjemgzqk8me6yenon2layp11tdnskosxg9", "c56r8qz274bct8jlb924v2b05xaysxytfmt2ff0vfgulmks7");  //测试服获取数据
             var fileUrlConf = "http://ac-syrskc2g.clouddn.com/";    //测试服的jsonurl域名

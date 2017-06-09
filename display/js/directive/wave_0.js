@@ -277,7 +277,9 @@
             meDiv = document.createElement("div");
             //modify by fishYu
             meDiv.className = "loading-wave-me-make fadeInUp animated";
-            meDiv.innerHTML = "使用ME制作";
+            var arr=["岁月长，衣裳薄","但凡未得到，但凡是过去，总是最登对","不介意孤独 比爱你舒服","跌到了最暗处，心忽然明了","尘埃落定之后，回忆别来挑拨","可能在我左右，你才追求，孤独的自由","爱情虽然美丽，却是易碎玻璃","你爱我爱不起，我怪你怪不起","我们拥有的，多不过付出的一切","多年后想起今天值得不值得","明明不是天使","我想哭，你可不可以暂时别要睡","忘了告诉你我的路途，看不到你苍老 ","我们拥有的，多不过付出的一切"];
+           
+            meDiv.innerHTML =arr[Math.round(Math.random()*arr.length)];// "使用ME制作";
 
             clipContainer.className = "container-clip-mask";
             maskContainer.className = "loading-wave-mask";
@@ -417,14 +419,14 @@
         "}"
     );
 
-    cssArr.push(
+   /**cssArr.push(
         ".loading-wave-melogo{ " +
         "background-image: url('" + img_logo + "'); " +
         "background-repeat: no-repeat;" +
         "background-position: center;" +
         "position: relative; " +
         "}"
-    );
+    ); */ 
 
     cssArr.push(
         ".loading-wave-mask{ " +
