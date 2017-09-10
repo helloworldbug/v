@@ -1,6 +1,6 @@
 /** 文件名称: floatingLayer.js
  *
- * 创 建 人: 刘标
+ * 创 建 人: tony
  * 创建日期: 2016/6/15 14:21
  * 描    述: 作品浮层相关功能
  */
@@ -30,12 +30,12 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
     this.personCenterPage = floatDom.find("#personCenterPage"); //Ta的主页按钮
 
     this.musicWrapper = $("#music-wrapper");                    //音乐按钮
-    //this.magazineSwitchComment = $("#magazine-switch-comment"); //弹幕按钮
+    this.magazineSwitchComment = $("#magazine-switch-comment"); //弹幕按钮
 
     this.reportBtn = $(".newest-end-report");        //举报按钮
 
     var self = this;
-    this.commentStatusTemp = true;     //记录评论状态
+    this.commentStatusTemp = false;     //记录评论状态
     this.praiseStatus = false;          //点赞状态
     this.device = utils.judgePlatform();
 
@@ -45,11 +45,11 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
     this.autorImg.css({ "background-image": "url(" + tpl.author_img + ")" });
     //隐藏发布日期 浏览次数  分享次数 自动播放按钮
     this.releaseDate.hide();
-    // this.lookAndShare.hide();    //modify by fishYu 2016-9-9 14:45打开浏览量
+    // this.lookAndShare.hide();    //modify by tony 2016-9-9 14:45打开浏览量
     // this.autoPlay.hide();
     this.releaseDate.html("发布日期: " + releaseTime.getFullYear() + "/" + (releaseTime.getMonth() + 1) + "/" + releaseTime.getDate());
     // this.lookAndShare.html(tpl.read_pv + "次浏览·" + tpl.share_int + "次分享");
-    this.lookAndShare.html(tpl.read_pv + "次浏览"); //modify by fishYu 2016-9-9 14:45打开浏览量
+    this.lookAndShare.html(tpl.read_pv + "次浏览"); //modify by tony 2016-9-9 14:45打开浏览量
 
     this.personImg.css({ "background-image": "url(" + tpl.author_img + ")" });
     this.personName.html(tpl.author_name);
@@ -78,13 +78,13 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         utils.openComment(comment, $("#switch-comment-txt"));
         floatDom.show();
         self.musicWrapper.hide();
-        //self.magazineSwitchComment.hide();
+        self.magazineSwitchComment.hide();
         if (tpl.list_style) {
             self.magazineViewPorts.show();
         }
         if (md && md.getAllPagesLength() > 2) {
             //超过一页的时候显示按钮 作品中设置了自动播放的状态，这里需要修改自动播放按钮的状态
-            //modify by fishYu 2016-9-9 18:20 优化自动播放
+            //modify by tony 2016-9-9 18:20 优化自动播放
             self.autoPlay.show();
             if (md.magazinePlaying) {
                 self.autoPlay[0].className = "switch-play pause-magazine";
@@ -106,7 +106,7 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         if (md && tpl["tpl_music"] && tpl["tpl_music"] !== "" && md.musicPlayer) {
             self.musicWrapper.show();
         }
-        //modify by fishYu 2016-9-10用于判断是否打开评论，开关设置打开的时候，才显示
+        //modify by tony 2016-9-10用于判断是否打开评论，开关设置打开的时候，才显示
         window.commentStatus = !self.commentStatusTemp;
         if (window.commentStatus) {
             utils.openComment(comment, $("#switch-comment-txt"));
@@ -115,9 +115,9 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         }
         utils.closeComment(comment, $("#switch-comment-txt"));
 
-        //if (window.commentSwitch) {
-        //    self.magazineSwitchComment.show();
-        //}
+        if (window.commentSwitch) {
+            self.magazineSwitchComment.show();
+        }
 
         if (self.commentStatusTemp || window.commentStatus) {
             //window.commentStatus = self.commentStatusTemp;
@@ -125,12 +125,12 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         }
     };
 
-    /** floatDom.on("tap", function (e) {              //点击浮层
+    floatDom.on("tap", function (e) {              //点击浮层
         e.preventDefault();
         e.stopPropagation();
         self.hideFloatingLayer();
     });
-    */
+
     this.autorImg.on("tap", function (e) {         //点击头像
         e.preventDefault();
         e.stopPropagation();
@@ -308,8 +308,7 @@ var FloatingLayer = function (tpl, currentUser, comment, md, log) {
         //var target = e.target;
         var guanzhuId = tpl.author;
         if (guanzhuId) {    //可以关注
-            var url="http://122.152.192.217/";
-            //var url = "http://me.agoodme.com/index.html?userId=" + guanzhuId;
+            var url = "http://me.agoodme.com/index.html?userId=" + guanzhuId;
             //                window.open(url, "_blank");
             location.href = url;
         }
